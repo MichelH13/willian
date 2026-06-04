@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Willian GoGoBoy - Animação de Festas e Eventos</title>
+  <meta name="description" content="Contrate o melhor GoGoBoy de São Paulo! Shows incríveis para festas, baladas e eventos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #0a0015 0%, #1a0a2e 50%, #0f0a1a 100%);
+      min-height: 100vh;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Background */
+    .background-effects {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .particle:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, transparent 70%);
+      top: 10%;
+      left: -5%;
+      animation-delay: 0s;
+    }
+
+    .particle:nth-child(2) {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+      top: 50%;
+      right: -10%;
+      animation-delay: -2s;
+    }
+
+    .particle:nth-child(3) {
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, transparent 70%);
+      bottom: 10%;
+      left: 30%;
+      animation-delay: -4s;
+    }
+
+    .particle:nth-child(4) {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%);
+      top: 30%;
+      left: 50%;
+      animation-delay: -6s;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      animation: sparkle 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -30px) scale(1.1); }
+      50% { transform: translate(-20px, 20px) scale(0.9); }
+      75% { transform: translate(20px, 10px) scale(1.05); }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Main Container */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 40px 0 20px;
+      width: 100%;
+    }
+
+    .title {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6, #fbbf24, #ec4899);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientMove 3s linear infinite;
+      text-shadow: 0 0 40px rgba(236, 72, 153, 0.5);
+      margin-bottom: 10px;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      font-weight: 600;
+      color: #a78bfa;
+      text-transform: uppercase;
+      letter-spacing: 8px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+
+    .location {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 15px;
+      padding: 8px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .location-dot {
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; box-shadow: 0 0 10px #22c55e; }
+      50% { opacity: 0.5; box-shadow: 0 0 5px #22c55e; }
+    }
+
+    /* Photo Carousel */
+    .carousel-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 30px 0;
+    }
+
+    .main-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(236, 72, 153, 0.3), 0 0 100px rgba(139, 92, 246, 0.2);
+      border: 3px solid transparent;
+      background: linear-gradient(#0a0015, #0a0015) padding-box,
+                  linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6) border-box;
+    }
+
+    .main-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .main-photo:hover img {
+      transform: scale(1.05);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .thumbnail {
+      width: 80px;
+      height: 100px;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.3s ease;
+      opacity: 0.6;
+    }
+
+    .thumbnail.active {
+      border-color: #ec4899;
+      opacity: 1;
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+    }
+
+    .thumbnail:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Contact Buttons */
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin: 30px 0;
+      width: 100%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 35px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    .btn:hover::before {
+      transform: translateX(100%);
+    }
+
+    .btn-instagram {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(225, 48, 108, 0.4);
+    }
+
+    .btn-instagram:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(225, 48, 108, 0.6);
+    }
+
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+    }
+
+    .btn svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    /* Features Section */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      width: 100%;
+      margin: 30px 0;
+    }
+
+    .feature {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px rgba(236, 72, 153, 0.2);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .feature h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .feature p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: auto;
+      padding: 30px 0;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+
+      .thumbnail {
+        width: 60px;
+        height: 75px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="background-effects">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="title">Willian GoGoBoy</h1>
+      <p class="subtitle">Performer</p>
+      <div class="location">
+        <span class="location-dot"></span>
+        <span>São Paulo - SP</span>
+      </div>
+    </header>
+
+    <!-- Photo Carousel -->
+    <div class="carousel-container">
+      <div class="main-photo">
+        <img id="mainImage" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_v4kg6gv4kg6gv4kg-NydpT6Uy2v5hbNy0w4tlJlGxt7AiDg.png" alt="Willian GoGoBoy">
+        <div class="photo-overlay"></div>
+      </div>
+      <div class="thumbnails">
+        <div class="thumbnail active" onclick="changePhoto(0)">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_v4kg6gv4kg6gv4kg-NydpT6Uy2v5hbNy0w4tlJlGxt7AiDg.png" alt="Foto 1">
+        </div>
+        <div class="thumbnail" onclick="changePhoto(1)">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_lt5l3xlt5l3xlt5l-BR1XsDT1yOTyhCpSIhIgYZfkUUP38d.png" alt="Foto 2">
+        </div>
+        <div class="thumbnail" onclick="changePhoto(2)">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_dgwosjdgwosjdgwo-3hhA2XvzMje6xUyyWE2fY0LyERmq5V.png" alt="Foto 3">
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Buttons -->
+    <div class="contact-buttons">
+      <a href="https://www.instagram.com/will_fidelis123/" target="_blank" rel="noopener noreferrer" class="btn btn-instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        Instagram
+      </a>
+      <a href="https://wa.me/5511971628110?text=Ol%C3%A1%20Willian!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20shows!" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        WhatsApp
+      </a>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <div class="feature">
+        <span class="feature-icon">🔥</span>
+        <h3>Shows Incríveis</h3>
+        <p>Performances que agitam qualquer evento</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">⚡</span>
+        <h3>Energia Total</h3>
+        <p>Animação garantida do início ao fim</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🎉</span>
+        <h3>Festas & Eventos</h3>
+        <p>Baladas, aniversários e eventos corporativos</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">⭐</span>
+        <h3>Profissionalismo</h3>
+        <p>Pontualidade e compromisso com a qualidade</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Willian GoGoBoy &copy; 2026 - Todos os direitos reservados</p>
+    </footer>
+  </div>
+
+  <script>
+    // Photo data
+    const photos = [
+      'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_v4kg6gv4kg6gv4kg-NydpT6Uy2v5hbNy0w4tlJlGxt7AiDg.png',
+      'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_lt5l3xlt5l3xlt5l-BR1XsDT1yOTyhCpSIhIgYZfkUUP38d.png',
+      'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_dgwosjdgwosjdgwo-3hhA2XvzMje6xUyyWE2fY0LyERmq5V.png'
+    ];
+
+    let currentPhoto = 0;
+    const mainImage = document.getElementById('mainImage');
+    const thumbnails = document.querySelectorAll('.thumbnail');
+
+    // Change photo function
+    function changePhoto(index) {
+      currentPhoto = index;
+      mainImage.src = photos[index];
+      
+      thumbnails.forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === index);
+      });
+    }
+
+    // Auto-rotate photos
+    setInterval(() => {
+      currentPhoto = (currentPhoto + 1) % photos.length;
+      changePhoto(currentPhoto);
+    }, 4000);
+
+    // Create sparkles
+    function createSparkles() {
+      const container = document.querySelector('.background-effects');
+      
+      for (let i = 0; i < 30; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = Math.random() * 3 + 's';
+        sparkle.style.animationDuration = (2 + Math.random() * 2) + 's';
+        container.appendChild(sparkle);
+      }
+    }
+
+    createSparkles();
+  </script>
+</body>
+</html>
